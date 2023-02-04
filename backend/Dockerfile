@@ -12,5 +12,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only=production
 COPY --from=0 /usr/src/app/dist ./dist
-EXPOSE 8080
+EXPOSE 80
 CMD [ "npm", "start" ]
