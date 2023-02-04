@@ -47,6 +47,7 @@ app.post('/login/validate', async (req, res) => {
     return;
   }
   res.send(generateJwt(phoneNumber));
+  console.log(`User ${phoneNumber} logged in`);
 });
 
 
@@ -58,6 +59,7 @@ const generateJwt = (phoneNumber) => {
   };
   return jwt.sign(payload, ACCESS_TOKEN_PRIVATE);
 };
+
 
 const validateJwt = (token) => {
   try {
