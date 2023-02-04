@@ -11,5 +11,5 @@ app.get('/', (_req, res) => {
 
 app.listen(port, host, () => {
   console.log(`Server listening on http://${host}:${port}`);
-  console.log('Or http://localhost:8080 in local development');
+  console.log(`Or http://localhost:${port} in local development`);
 });
