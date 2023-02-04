@@ -2,6 +2,8 @@ import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 const app = initializeApp({ projectId: 'skipli-coding-challenge-1' });
 const USER_COLLECTION = 'users';
+const ACCESS_CODE_EXPIRATION = 1000 * 60 * 5; // 5 minutes
+
 interface User {
     phoneNumber?: string;
     accessCode?: number;
@@ -22,7 +24,7 @@ export const CreateNewAccessCode = async (phoneNumber) => {
 
         transaction.update(user.ref, {
             accessCode,
-            accessCodeExpiration: Date.now() + 1000 * 60 * 5
+            accessCodeExpiration: Date.now() + ACCESS_CODE_EXPIRATION
         });
         return accessCode;
     });
