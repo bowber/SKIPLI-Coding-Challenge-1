@@ -1,6 +1,7 @@
 // Simple express server
 import express from 'express';
-import { CreateNewAccessCode, ValidateAccessCode } from './firestore';
+import cors from 'cors';
+import { CreateNewAccessCode, ValidateAccessCode } from './data';
 import jwt from 'jsonwebtoken';
 
 const app = express();
@@ -8,45 +9,55 @@ const port = 80;
 const host = '0.0.0.0';
 const ACCESS_TOKEN_PRIVATE = 'this should be saved in a secret manager';
 
-
+app.use(cors())
 app.use(express.json());
 
 
 app.get('/', (_req, res) => {
-  res.send('Hello World!');
+  res.send('OK');
 });
 
 
 app.post('/login/access-code', async (req, res) => {
   const phoneNumber = req.body.phoneNumber as string;
   console.log(process.env.FIRESTORE_EMULATOR_HOST);
-  
+
   if (!phoneNumber) {
-    res.status(400).send('Missing phone number');
+    res.status(400).send({ error: 'Missing phone number' });
     return;
   }
+
   const accessCode = await CreateNewAccessCode(phoneNumber);
+
   if (!accessCode) {
-    res.status(404).send('User not found');
+    res.status(404).send({ error: 'Phone number not found' });
     return;
   }
-  res.send(accessCode.toString());
+  res.send({ success: true });
 });
 
 
 app.post('/login/validate', async (req, res) => {
-  const phoneNumber = req.body.phoneNumber;
-  const accessCode = req.body.accessCode;
+  const phoneNumber = req.body.phoneNumber as string;
+  const accessCode = req.body.accessCode as string;
+
   if (!phoneNumber || !accessCode) {
-    res.status(400).send('Missing phone number or access code');
+    res.status(400).send({ error: 'Missing phone number or access code' });
     return;
   }
+
   const valid = await ValidateAccessCode(phoneNumber, accessCode);
+
   if (!valid) {
-    res.status(401).send('Invalid access code');
+    res.status(401).send({ error: 'Invalid access code' });
     return;
   }
-  res.send(generateJwt(phoneNumber));
+
+  res.send({
+    success: true,
+    token: generateJwt(phoneNumber)
+  });
+
   console.log(`User ${phoneNumber} logged in`);
 });
 
