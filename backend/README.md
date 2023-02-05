@@ -4,6 +4,7 @@
 1. Install Java and make sure it is in your PATH (required by Firestore emulator)
 2. Intall Firebase CLI by running `npm install -g firebase-tools`
 2. Change working directory to the `backend` folder
+3. Change .firebaserc file to point to your Firebase project
 3. Run `npm install` to install all dependencies
 4. Start Firestore emulator by running `firebase emulators:start --only firestore`
 5. Specify some [environment variables](#environment-variables) in your terminal
