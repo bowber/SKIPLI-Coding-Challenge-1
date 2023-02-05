@@ -14,9 +14,11 @@
 Note: There is a shortcut to do step 5 and 6 on Windows by running 'local.cmd' in the backend folder. You need to specify the environment variables in the script before running it.
 
 ## Run in production
-The backend has a Dockerfile that can be used to build a Docker image. The image can then be deployed to a container registry and deployed to a container platform such as GCP Cloud Run. 
-And you need to specify some [environment variables](#environment-variables) in the container.  
-*Note* that if you are **not** using Cloud Run, you need to specify the credentials of a service account that has access to Firestore, follow the instructions [here](https://firebase.google.com/docs/admin/setup#initialize_the_sdk_in_non-google_environments).
+The backend has a Dockerfile that can be used to build a Docker image. The image can then be deployed to a container registry and deployed to a container platform such as GCP Cloud Run.  
+
+>   **Note**: Change .firebaserc file to point to your Firebase project.  
+    Specify some [environment variables](#environment-variables) in the container.  
+    If you are **not** using Cloud Run, you need to specify the credentials of a service account that has access to Firestore, follow the instructions [here](https://firebase.google.com/docs/admin/setup#initialize_the_sdk_in_non-google_environments).
 
 ## Environment variables
 - `TWILIO_ACCOUNT_SID`: The account SID of your Twilio account
