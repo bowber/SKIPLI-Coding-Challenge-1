@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "start:local-win": "set FIRESTORE_EMULATOR_HOST=localhost:8081&& node dist/server.js",
-    "start:local": "FIRESTORE_EMULATOR_HOST=localhost:8081 node dist/server.js"
+    "start": "pm2-runtime dist/server.js",
+    "local": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +14,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "firebase-admin": "^11.5.0",
-    "jsonwebtoken": "^9.0.0",
     "twilio": "^3.84.1"
   },
   "devDependencies": {
