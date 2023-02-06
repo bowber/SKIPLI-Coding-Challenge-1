@@ -1,5 +1,29 @@
 # Express Backend
 
+## Backend structure
+- `src`: Contains all the source code
+    - `data.ts`: Contains all the data access logic
+    - `server.ts`: The entry point of the server
+    - `stringee.ts`: Contains Stringee sms logic (not used)
+    - `twilio.ts`: Contains Twilio sms logic
+- `local.cmd`: A shortcut to run the server locally on Windows
+- `tsconfig.json`: Specifies the TypeScript compiler options
+
+Firestore related files:
+- `.firebaserc`: Specifies the Firebase project to use
+- `firestore.json`: Specifies the Firestore emulator configuration
+- `firestore.indexes.json`: Specifies the indexes to create in Firestore
+- `firestore.rules`: Specifies the Firestore security rules
+> Note: all firestore related files are initialized by the Firebase CLI when you run `firebase init firestore`. Feel free to modify them to suit your needs. But keep the emulator configuration in `firestore.json` as it is.
+
+Docker related files:
+- `.dockerignore`: Specifies the files to ignore when building the Docker image
+- `Dockerfile`: Specifies the Docker image build steps
+
+Nodejs related files:
+- `package.json`: Specifies the dependencies and scripts
+- `package-lock.json`: Specifies the exact versions of the dependencies
+
 ## Run locally
 1. Install Java and make sure it is in your PATH (required by Firestore emulator)
 2. Intall Firebase CLI by running `npm install -g firebase-tools`
