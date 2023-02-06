@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import { CreateNewAccessCode, ValidateAccessCode } from './data';
-import { sendTwilioOTP } from './twilio';
+import { sendOTP } from './twilio';
 
 const app = express();
 const port = 80;
@@ -30,8 +30,10 @@ app.post('/login/access-code', async (req, res) => {
     res.status(404).send({ error: 'Phone number not found' });
     return;
   }
-  sendTwilioOTP(phoneNumber, accessCode)
-    .then(() => console.log(`Sent access code ${accessCode} to ${phoneNumber}`))
+  sendOTP(phoneNumber, accessCode.toString(10))
+    .then(async () => {
+      console.log(`Sent access code ${accessCode} to ${phoneNumber}`);
+    })
 
   res.send({ success: true });
 });
