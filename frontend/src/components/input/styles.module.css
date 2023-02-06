@@ -1,0 +1,15 @@
+.input {
+    max-width: 300px;
+    height: 40px;
+    border: 1px dashed #1a73e8;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: 0.2s;
+}
+
+.input:focus {
+    border-style: solid;
+}

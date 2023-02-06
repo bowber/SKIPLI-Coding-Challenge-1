@@ -1,0 +1,25 @@
+.container {
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+}
+
+.primary {
+    background-color: #1a73e8;
+    color: #fff;
+}
+
+.secondary {
+    background-color: #fff;
+    color: #1a73e8;
+}
+
+.text {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}

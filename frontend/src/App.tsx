@@ -1,5 +1,4 @@
 
-import { useState } from 'react';
 import './App.css';
 import { Form } from './components/login-form';
 
@@ -10,19 +9,18 @@ function App() {
   return (
     <div className="App">
       <Form
-        onSendAccessCode={sendAccessCode}
+        onSendAccessCode={getAccessCode}
         onSignIn={signIn}
       />
     </div>
   );
 }
 
-const sendAccessCode = async (phoneNum: string) => {
+const getAccessCode = async (phoneNum: string) => {
   
-  console.log("Send Access Code " + phoneNum);
+  console.log("Send Access Code to: " + phoneNum);
   
-  try {
-    const res = await fetch(auth_host + "/login/access-code", {
+    fetch(auth_host + "/login/access-code", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -31,16 +29,19 @@ const sendAccessCode = async (phoneNum: string) => {
         phoneNumber: phoneNum
       })
     })
-    alert(res.statusText)
-  } catch (err) {
-    alert(err)
-  }
+    .then(async res => {
+      const data = await res.json()
+      if (res.status === 200) alert("Success: Access code sent")
+      else alert("Error: " + data.error)
+    })
+    .catch(err => {
+      alert(err)
+    })
 }
-
 const signIn = async (phoneNum: string, code: string) => {
   console.log("SignIn " + phoneNum + " " + code);
-  try {
-  const res = await fetch(auth_host + "/login/validate", {
+  
+  fetch(auth_host + "/login/validate", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -50,10 +51,14 @@ const signIn = async (phoneNum: string, code: string) => {
       accessCode: code
     })
   })
-  alert(res.statusText)
-  } catch (err) {
+  .then(async res => {
+    const data = await res.json()
+    if (res.status === 200) alert("Success: You are logged in")
+    else alert("Error: " + data.error)
+  })
+  .catch(err => {
     alert(err)
-  }
+  })
 }
 
 
