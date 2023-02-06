@@ -39,6 +39,7 @@ app.post('/login/access-code', async (req, res) => {
     res.send({ success: true });
   }
   catch (e) {
+    console.log(e);
     res.status(500).send({ error: 'Internal server error' });
   }
 });
@@ -69,6 +70,7 @@ app.post('/login/validate', async (req, res) => {
   console.log(`User ${phoneNumber} logged in`);
 }
 catch (e) {
+  console.log(e);
   res.status(500).send({ error: 'Internal server error' });
 }
 });
