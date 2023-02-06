@@ -48,7 +48,7 @@ app.post('/login/validate', async (req, res) => {
     return;
   }
 
-  const valid = await ValidateAccessCode(phoneNumber, accessCode);
+  const valid = await ValidateAccessCode(phoneNumber, parseInt(accessCode));
 
   if (!valid) {
     res.status(401).send({ error: 'Invalid access code' });

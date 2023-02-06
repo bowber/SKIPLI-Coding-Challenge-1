@@ -41,7 +41,7 @@ export const CreateNewAccessCode = async (phoneNumber) => {
 };
 
 
-export const ValidateAccessCode = async (phoneNumber: string, accessCode: string) => {
+export const ValidateAccessCode = async (phoneNumber: string, accessCode: number) => {
     const usersRef = db.collection(USER_COLLECTION);
     return await db.runTransaction(async (transaction) => {
         const userQuery = await transaction.get(
