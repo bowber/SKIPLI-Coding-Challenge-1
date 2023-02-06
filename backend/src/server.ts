@@ -18,28 +18,35 @@ app.get('/', (_req, res) => {
 
 
 app.post('/login/access-code', async (req, res) => {
-  const phoneNumber = req.body.phoneNumber as string;
-  if (!phoneNumber) {
-    res.status(400).send({ error: 'Missing phone number' });
-    return;
+  try {
+    const phoneNumber = req.body.phoneNumber as string;
+    if (!phoneNumber) {
+      res.status(400).send({ error: 'Missing phone number' });
+      return;
+    }
+
+    const accessCode = await CreateNewAccessCode(phoneNumber);
+
+    if (!accessCode) {
+      res.status(404).send({ error: 'Phone number not found' });
+      return;
+    }
+    sendOTP(phoneNumber, accessCode.toString(10))
+      .then(async () => {
+        console.log(`Sent access code ${accessCode} to ${phoneNumber}`);
+      })
+
+    res.send({ success: true });
   }
-
-  const accessCode = await CreateNewAccessCode(phoneNumber);
-
-  if (!accessCode) {
-    res.status(404).send({ error: 'Phone number not found' });
-    return;
+  catch (e) {
+    res.status(500).send({ error: 'Internal server error' });
   }
-  sendOTP(phoneNumber, accessCode.toString(10))
-    .then(async () => {
-      console.log(`Sent access code ${accessCode} to ${phoneNumber}`);
-    })
-
-  res.send({ success: true });
 });
 
 
 app.post('/login/validate', async (req, res) => {
+
+  try {
   const phoneNumber = req.body.phoneNumber as string;
   const accessCode = req.body.accessCode as string;
 
@@ -60,6 +67,10 @@ app.post('/login/validate', async (req, res) => {
   });
 
   console.log(`User ${phoneNumber} logged in`);
+}
+catch (e) {
+  res.status(500).send({ error: 'Internal server error' });
+}
 });
 
 
