@@ -48,31 +48,31 @@ app.post('/login/access-code', async (req, res) => {
 app.post('/login/validate', async (req, res) => {
 
   try {
-  const phoneNumber = req.body.phoneNumber as string;
-  const accessCode = req.body.accessCode as string;
+    const phoneNumber = req.body.phoneNumber as string;
+    const accessCode = req.body.accessCode as string;
 
-  if (!phoneNumber || !accessCode) {
-    res.status(400).send({ error: 'Missing phone number or access code' });
-    return;
+    if (!phoneNumber || !accessCode) {
+      res.status(400).send({ error: 'Missing phone number or access code' });
+      return;
+    }
+
+    const valid = await ValidateAccessCode(phoneNumber, parseInt(accessCode));
+
+    if (!valid) {
+      res.status(401).send({ error: 'Invalid access code' });
+      return;
+    }
+
+    res.send({
+      success: true,
+    });
+
+    console.log(`User ${phoneNumber} logged in`);
   }
-
-  const valid = await ValidateAccessCode(phoneNumber, parseInt(accessCode));
-
-  if (!valid) {
-    res.status(401).send({ error: 'Invalid access code' });
-    return;
+  catch (e) {
+    console.log(e);
+    res.status(500).send({ error: 'Internal server error' });
   }
-
-  res.send({
-    success: true,
-  });
-
-  console.log(`User ${phoneNumber} logged in`);
-}
-catch (e) {
-  console.log(e);
-  res.status(500).send({ error: 'Internal server error' });
-}
 });
 
 
