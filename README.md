@@ -8,8 +8,8 @@ This README.md file is used to show the sceenshots of the project.
 ## Screenshots
 
 > ### Frontend UI:
-> ![Frontend](./screenshots/frontend.png)
+> ![Frontend](./screenshots/frontend.PNG)
 
 > ### Firestore database:
-> ![Firestore](./screenshots/firestore.png)
+> ![Firestore](./screenshots/firestore.PNG)
 
