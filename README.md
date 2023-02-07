@@ -6,3 +6,10 @@ This project is separated into two parts: the [backend](./backend/) and the [fro
 This README.md file is used to show the sceenshots of the project.
 
 ## Screenshots
+
+> ### Frontend UI:
+> ![Frontend](./screenshots/frontend.png)
+
+> ### Firestore database:
+> ![Firestore](./screenshots/firestore.png)
+
